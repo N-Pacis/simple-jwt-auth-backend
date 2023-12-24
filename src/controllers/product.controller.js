@@ -12,12 +12,11 @@ export const registerProduct = async (req, res) => {
   try {
     const { name, description, price } = req.body;
 
-    let added_by = req.user.id;
 
     await sequelize.query(
-      "CALL usp_ins_product(:name, :description, :price, :added_by)",
+      "CALL usp_ins_product(:name, :description, :price)",
       {
-        replacements: { name, description, price, added_by },
+        replacements: { name, description, price },
       }
     );
 

@@ -19,16 +19,6 @@ const ProductModel = sequelize.define('products', {
   price: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  added_by: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: UserModel,
-      key: 'id',
-    },
-    onUpdate: 'cascade',
-    onDelete: 'cascade',
-    allowNull: true,
   }
 },{
     timestamps:false,

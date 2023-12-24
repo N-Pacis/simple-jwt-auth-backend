@@ -44,9 +44,9 @@ async function executeStoredProcedures() {
       DROP PROCEDURE IF EXISTS usp_del_product;
       `,
       `
-      CREATE PROCEDURE usp_ins_product(IN name VARCHAR(255), IN description TEXT, IN price INT,added_by INT)
+      CREATE PROCEDURE usp_ins_product(IN name VARCHAR(255), IN description TEXT, IN price INT INT)
       BEGIN
-          INSERT INTO products (name, description, price,added_by) VALUES (name, description, price,added_by);
+          INSERT INTO products (name, description, price) VALUES (name, description, price);
       END;
       `,
   
