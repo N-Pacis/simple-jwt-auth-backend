@@ -10,7 +10,8 @@
         },
         "version": "1.0.0"
     },
-    "tags": [{
+    "tags": [
+        {
             "name": "USER OPERATIONS",
             "description": "Operations on users"
         },
@@ -19,9 +20,11 @@
             "description": "Operations on products"
         }
     ],
-    "security": [{
-        "Bearer": []
-    }],
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
     "securityDefinitions": {
         "Bearer": {
             "type": "apiKey",
@@ -44,22 +47,24 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
-                    "in": "body",
-                    "name": "body",
-                    "type": "object",
-                    "consumes": "application/json",
-                    "properties": {
-                        "username": {
-                            "type": "string",
-                            "required": "true"
-                        },
-                        "password": {
-                            "type": "string",
-                            "required": "true"
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "type": "object",
+                        "consumes": "application/json",
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "password": {
+                                "type": "string",
+                                "required": "true"
+                            }
                         }
                     }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -88,22 +93,24 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
-                    "in": "body",
-                    "name": "body",
-                    "type": "object",
-                    "consumes": "application/json",
-                    "properties": {
-                        "username": {
-                            "type": "string",
-                            "required": "true"
-                        },
-                        "password": {
-                            "type": "string",
-                            "required": "true"
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "type": "object",
+                        "consumes": "application/json",
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "password": {
+                                "type": "string",
+                                "required": "true"
+                            }
                         }
                     }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -160,15 +167,132 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
-                        "in": "query",
-                        "name": "page",
-                        "type": "number"
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/products/by-id/{id}": {
+            "get": {
+                "tags": [
+                    "PRODUCT OPERATIONS"
+                ],
+                "summary": "Get Product by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "number",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/products/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "PRODUCT OPERATIONS"
+                ],
+                "summary": "Delete Product by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "number",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/products/update/{id}": {
+            "put": {
+                "tags": [
+                    "PRODUCT OPERATIONS"
+                ],
+                "summary": "Update Product by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "number",
+                        "required": "true"
                     },
                     {
-                        "in": "query",
-                        "name": "limit",
-                        "type": "number"
+                        "in": "body",
+                        "name": "body",
+                        "type": "object",
+                        "consumes": "application/json",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "description": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "price": {
+                                "type": "number",
+                                "required": "true"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -199,26 +323,28 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [{
-                    "in": "body",
-                    "name": "body",
-                    "type": "object",
-                    "consumes": "application/json",
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "required": "true"
-                        },
-                        "description": {
-                            "type": "string",
-                            "required": "true"
-                        },
-                        "price": {
-                            "type": "number",
-                            "required": "true"
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "type": "object",
+                        "consumes": "application/json",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "description": {
+                                "type": "string",
+                                "required": "true"
+                            },
+                            "price": {
+                                "type": "number",
+                                "required": "true"
+                            }
                         }
                     }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"

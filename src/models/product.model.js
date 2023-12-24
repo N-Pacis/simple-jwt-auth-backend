@@ -2,26 +2,26 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../utils/database.js';
 import UserModel from './user.model.js';
 
-const ProductModel = sequelize.define('product', {
+const ProductModel = sequelize.define('products', {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true
   },
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   price: {
-    type: DataTypes.DOUBLE,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   added_by: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     references: {
       model: UserModel,
       key: 'id',
@@ -31,8 +31,8 @@ const ProductModel = sequelize.define('product', {
     allowNull: true,
   }
 },{
-    timestamps:true,
-    tableName: "product"
+    timestamps:false,
+    tableName: "products"
   },
 );
 
