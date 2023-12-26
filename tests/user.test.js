@@ -48,6 +48,59 @@ describe("User module test", () => {
     });
   });
 
+  describe("User login feature test", () => {
+    test("Should return 200 success response code and access token on successful login", async () => {
+      const userToLogin = {
+        username: "test1",
+        password: "test123",
+      };
+
+      const response = await request.post("/users/login").send(userToLogin);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty("data");
+      expect(response.body.data).toHaveProperty("access_token");
+    });
+
+    test("Should return 400 error response code on login with invalid password", async () => {
+      const invalidPasswordUser = {
+        username: "test1",
+        password: "invalid_password",
+      };
+
+      const response = await request
+        .post("/users/login")
+        .send(invalidPasswordUser);
+
+      expect(response.status).toBe(400);
+    });
+  });
+
+  describe("User profile feature test", () => {
+    test("Should return 200 success response code and user profile data", async () => {
+      const userToLogin = {
+        username: "test1",
+        password: "test123",
+      };
+
+      const resp = await request.post("/users/login").send(userToLogin);
+      let access_token = resp.body.data.access_token;
+
+      const response = await request.get("/users/profile").set("auth-token", `Bearer ${access_token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty("data");
+      expect(response.body.data).toHaveProperty("username", "test1");
+    });
+
+    test("Should return 401 unauthorized response code without authentication token", async () => {
+        const response = await request.get("/users/profile");
+  
+        expect(response.status).toBe(401);
+    });
+
+  });
+
   afterAll(async () => {
     await UserModel.destroy({
       where: {},
