@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "NODE_ENV=TEST node --experimental-vm-modules ./node_modules/.bin/jest jest --verbose",
-    "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" NODE_ENV=TEST npx jest"
   },
   "author": "N-pacis",
   "dependencies": {
