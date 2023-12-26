@@ -1,13 +1,16 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { db_host, db_name, db_user, db_password,db_port } from "./config.js";
 
+const environment = process.env.NODE_ENV || "DEV";
+
 const sequelize = new Sequelize({
   dialect: "mysql",
   host: db_host,
   database: db_name,
   username: db_user,
   password: db_password,
-  port: db_port
+  port: db_port,
+  logging: environment !== "TEST", 
 });
 
 export async function connectDB() {
@@ -23,6 +26,16 @@ export async function connectDB() {
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
+}
+
+export async function closeConnection(){
+  sequelize.close()
+  .then(() => {
+    console.log('✅ Sequelize connection closed.');
+  })
+  .catch((error) => {
+    console.error('Error closing Sequelize connection:', error);
+  });
 }
 
 async function executeStoredProcedures() {
@@ -44,7 +57,7 @@ async function executeStoredProcedures() {
       DROP PROCEDURE IF EXISTS usp_del_product;
       `,
       `
-      CREATE PROCEDURE usp_ins_product(IN name VARCHAR(255), IN description TEXT, IN price INT INT)
+      CREATE PROCEDURE usp_ins_product(IN name VARCHAR(255), IN description TEXT, IN price INT)
       BEGIN
           INSERT INTO products (name, description, price) VALUES (name, description, price);
       END;
