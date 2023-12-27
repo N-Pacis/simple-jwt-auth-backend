@@ -25,6 +25,7 @@ jobs:
       DB_USER: root
       DB_PASSWORD: password
       DB_NAME: test_database
+      JWT_KEY: test_JWT_292390_KEy 
 
     steps:
       - name: Checkout code
@@ -39,6 +40,7 @@ jobs:
           echo "DB_USER=$DB_USER" >> $GITHUB_ENV
           echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
           echo "DB_NAME=$DB_NAME" >> $GITHUB_ENV
+          echo "JWT_KEY=$JWT_KEY" >> $GITHUB_ENV # Set the JWT key
 
       - name: Install dockerize
         run: |
