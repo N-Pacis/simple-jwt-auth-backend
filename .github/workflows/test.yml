@@ -13,8 +13,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test_database
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
         ports:
           - '3306:3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -22,25 +22,26 @@ jobs:
     env:
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
-      DB_USER: root
-      DB_PASSWORD: password
-      DB_NAME: test_database
-      JWT_KEY: test_JWT_292390_KEy 
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      JWT_KEY: ${{ secrets.JWT_KEY }}
+      
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Connect to database
-        run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test_database;'
+        run: mysql -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASSWORD -e 'CREATE DATABASE IF NOT EXISTS $DB_NAME;'
 
       - name: Set up environment variables
         run: |
-          echo "DB_HOST=$DB_HOST" >> $GITHUB_ENV
-          echo "DB_PORT=$DB_PORT" >> $GITHUB_ENV
-          echo "DB_USER=$DB_USER" >> $GITHUB_ENV
-          echo "DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
-          echo "DB_NAME=$DB_NAME" >> $GITHUB_ENV
-          echo "JWT_KEY=$JWT_KEY" >> $GITHUB_ENV # Set the JWT key
+          echo "DB_HOST=${DB_HOST}" >> $GITHUB_ENV
+          echo "DB_PORT=${DB_PORT}" >> $GITHUB_ENV
+          echo "DB_USER=${DB_USER}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${DB_PASSWORD}" >> $GITHUB_ENV
+          echo "DB_NAME=${DB_NAME}" >> $GITHUB_ENV
+          echo "JWT_KEY=${JWT_KEY}" >> $GITHUB_ENV # Set the JWT key
 
       - name: Install dockerize
         run: |
@@ -53,7 +54,7 @@ jobs:
         run: npm install -g sequelize-cli
 
       - name: Wait for MySQL to be ready
-        run: dockerize -wait tcp://localhost:3306 -timeout 1m
+        run: dockerize -wait tcp://${DB_HOST}:${DB_PORT} -timeout 1m
 
       - name: Install dependencies
         run: npm install
