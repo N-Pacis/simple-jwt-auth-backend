@@ -1,8 +1,8 @@
 import supertest from "supertest";
-import app from "../src/app";
-import UserModel from "../src/models/user.model";
-import { closeConnection, connectDB, executeStoredProcedures } from "../src/utils/database";
-import ProductModel from "../src/models/product.model";
+import app from "../../src/app";
+import UserModel from "../../src/models/user.model";
+import { closeConnection, connectDB, executeStoredProcedures } from "../../src/utils/database";
+import ProductModel from "../../src/models/product.model";
 
 const request = supertest(app);
 

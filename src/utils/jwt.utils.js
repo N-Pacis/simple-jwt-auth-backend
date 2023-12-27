@@ -16,7 +16,6 @@ export const signToken = (payload) => {
       ...payload,
       iat,
       exp,
-      scope: payload.method === "GET" ? "read:service" : "write:service",
       jti,
     },
     secret
