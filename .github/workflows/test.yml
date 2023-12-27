@@ -35,6 +35,13 @@ jobs:
       - name: Set up environment variables
         run: echo "DB_HOST=$DB_HOST\nDB_PORT=$DB_PORT\nDB_USER=$DB_USER\nDB_PASSWORD=$DB_PASSWORD\nDB_NAME=$DB_NAME" >> $GITHUB_ENV
 
+      - name: Install dockerize
+        run: |
+          wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
+          tar -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
+          sudo mv dockerize /usr/local/bin/dockerize
+          rm dockerize-linux-amd64-v0.6.1.tar.gz
+
       - name: Wait for MySQL to be ready
         run: dockerize -wait tcp://localhost:3306 -timeout 1m
 
