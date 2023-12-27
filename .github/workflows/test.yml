@@ -16,7 +16,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: test_database
         ports:
-            - '3306:3306'
+          - '3306:3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     env:
@@ -47,11 +47,17 @@ jobs:
           sudo mv dockerize /usr/local/bin/dockerize
           rm dockerize-linux-amd64-v0.6.1.tar.gz
 
+      - name: Install sequelize-cli
+        run: npm install -g sequelize-cli
+
       - name: Wait for MySQL to be ready
         run: dockerize -wait tcp://localhost:3306 -timeout 1m
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run Sequelize migrations
+        run: npx sequelize-cli db:migrate --env testing
 
       - name: Run tests
         run: npm test
