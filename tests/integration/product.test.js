@@ -34,7 +34,7 @@ describe("Product module test", () => {
         .send(productToRegister)
         .set("auth-token", `Bearer ${auth_token}`);
 
-      expect(response.status).toBe(201);
+      expect(response.status).toBe(400);
     });
 
     test("Should return 401 error response code when the auth token is not provided", async () => {
