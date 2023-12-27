@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" NODE_ENV=TEST npx jest"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest"
   },
   "author": "N-pacis",
   "dependencies": {
