@@ -57,7 +57,7 @@ jobs:
         run: npm install
 
       - name: Run Sequelize migrations
-        run: npx sequelize-cli db:migrate --env testing
+        run: npx sequelize-cli db:migrate --env actions
 
       - name: Run tests
         run: npm test
