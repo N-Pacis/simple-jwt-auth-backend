@@ -20,10 +20,10 @@ export async function connectDB() {
     await sequelize.sync({ force: true });
     console.log("✅ Connection has been established successfully and tables created.");
 
-    if (environment !== "TEST") {
-      await executeStoredProcedures();
-      console.log("✅ Stored procedures executed successfully.");
-    }
+    // if (environment !== "TEST") {
+    //   await executeStoredProcedures();
+    //   console.log("✅ Stored procedures executed successfully.");
+    // }
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
