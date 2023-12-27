@@ -15,7 +15,6 @@ const sequelize = new Sequelize({
 
 export async function connectDB() {
   try {
-    console.log("DATABASE NAME--------", db_name, "---------DATABASE USERNAME", db_user)
     await sequelize.authenticate();
     await sequelize.sync({ force: true });
     console.log("✅ Connection has been established successfully and tables created.");

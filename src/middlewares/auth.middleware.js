@@ -14,7 +14,6 @@ export default function (req, res, next) {
     req.user = verifyToken(token)
     next();
   } catch (ex) {
-    console.log(ex)
     return errorResponse("Invalid token!", res);
   }
 }
