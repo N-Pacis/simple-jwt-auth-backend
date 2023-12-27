@@ -41,7 +41,7 @@ jobs:
           echo "DB_USER=${DB_USER}" >> $GITHUB_ENV
           echo "DB_PASSWORD=${DB_PASSWORD}" >> $GITHUB_ENV
           echo "DB_NAME=${DB_NAME}" >> $GITHUB_ENV
-          echo "JWT_KEY=${JWT_KEY}" >> $GITHUB_ENV # Set the JWT key
+          echo "JWT_KEY=${JWT_KEY}" >> $GITHUB_ENV
 
       - name: Install dockerize
         run: |
