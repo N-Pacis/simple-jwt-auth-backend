@@ -15,21 +15,20 @@ const sequelize = new Sequelize({
 
 export async function connectDB() {
   try {
-    console.log("DATABASE NAME--------",db_name,"---------DATABASE USERNAME",db_user)
+    console.log("DATABASE NAME--------", db_name, "---------DATABASE USERNAME", db_user)
     await sequelize.authenticate();
     await sequelize.sync({ force: true });
     console.log("✅ Connection has been established successfully and tables created.");
 
-    if(environment != "TEST"){
+    if (environment !== "TEST") {
       await executeStoredProcedures();
       console.log("✅ Stored procedures executed successfully.");
-
     }
-
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 }
+
 
 export async function closeConnection() {
   sequelize
