@@ -7,16 +7,14 @@ export let db_user;
 export let db_password;
 export let db_port;
 
-const environment = process.env.NODE_ENV || "DEV";
-
 if (process.env.GITHUB_ACTIONS) {
-  db_host = String(process.env.GA_DB_HOST);
-  db_name = String(process.env.GA_DB_NAME);
-  db_user = String(process.env.GA_DB_USER);
-  db_password = String(process.env.GA_DB_PASSWORD);
-  db_port = String(process.env.GA_DB_PORT);
-}
-else{
+  db_host = String(process.env.DB_HOST);
+  db_name = String(process.env.DB_NAME);
+  db_user = String(process.env.DB_USER);
+  db_password = String(process.env.DB_PASSWORD);
+  db_port = String(process.env.DB_PORT);
+} else {
+  const environment = process.env.NODE_ENV || "DEV";
   if (environment === "PROD") {
     db_host = String(process.env.PROD_DB_HOST);
     db_name = String(process.env.PROD_DB_NAME);
@@ -36,5 +34,4 @@ else{
     db_password = String(process.env.DEV_DB_PASSWORD);
     db_port = String(process.env.DEV_DB_PORT);
   }
-} 
-
+}
