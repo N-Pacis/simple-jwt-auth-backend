@@ -9,14 +9,34 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_USER: test_user
+      DB_PASSWORD: test_password
+      DB_NAME: test_database
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '14'
+      - name: Set up environment variables
+        run: echo "DB_HOST=$DB_HOST\nDB_PORT=$DB_PORT\nDB_USER=$DB_USER\nDB_PASSWORD=$DB_PASSWORD\nDB_NAME=$DB_NAME" >> $GITHUB_ENV
+
+      - name: Wait for MySQL to be ready
+        run: dockerize -wait tcp://localhost:3306 -timeout 1m
 
       - name: Install dependencies
         run: npm install

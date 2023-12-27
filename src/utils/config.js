@@ -9,7 +9,13 @@ export let db_port;
 
 const environment = process.env.NODE_ENV || "DEV";
 
-if (environment === "PROD") {
+if (process.env.GITHUB_ACTIONS) {
+  db_host = String(process.env.GA_DB_HOST);
+  db_name = String(process.env.GA_DB_NAME);
+  db_user = String(process.env.GA_DB_USER);
+  db_password = String(process.env.GA_DB_PASSWORD);
+  db_port = String(process.env.GA_DB_PORT);
+} else if (environment === "PROD") {
   db_host = String(process.env.PROD_DB_HOST);
   db_name = String(process.env.PROD_DB_NAME);
   db_user = String(process.env.PROD_DB_USER);
