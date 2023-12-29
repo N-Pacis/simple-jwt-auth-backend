@@ -68,10 +68,9 @@ describe("Product module test", () => {
 
       expect(response.status).toBe(401);
     });
+  });
 
-   })
-
-   describe('Update product feature test', () => {
+  describe('Update product feature test', () => {
     test("Should return 200 success response code on successful product update", async () => {
       const existingProduct = await ProductModel.create({
         name: "Existing Product",
@@ -148,7 +147,6 @@ describe("Product module test", () => {
       expect(response.status).toBe(401);
     });
   });
-
 
   afterAll(async () => {
     await UserModel.destroy({
