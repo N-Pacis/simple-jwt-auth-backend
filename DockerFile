@@ -1,12 +1,29 @@
-FROM node:14-alpine
+# Use the official Node.js slim image as the base image
+FROM node:18
 
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY . .
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    && ln -sf python3 /usr/bin/python \
+    && npm install --global npm@latest
 
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install application dependencies
 RUN npm install
 
+# Copy the application code to the container
+COPY . .
 
-EXPOSE 8080
+# Expose the port that the application will run on
+EXPOSE 5000
 
+# Command to run the application
 CMD ["npm", "start"]

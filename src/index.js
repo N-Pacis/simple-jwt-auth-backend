@@ -1,9 +1,9 @@
-import app from "./src/app.js"
+import app from "./app.js"
 import { config } from "dotenv";
 config({
   path: "./.env",
 });
-import { connectDB } from "./src/utils/database.js";
+import { connectDB } from "./utils/database.js";
 
 
 app.listen(process.env.PORT, async () => {

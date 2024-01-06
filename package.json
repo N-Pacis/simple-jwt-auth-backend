@@ -5,16 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon src/index.js",
     "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" NODE_ENV=TEST npx jest"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" NODE_ENV=TEST npx jest",
+    "build": "babel src --out-dir dist"
   },
   "author": "N-pacis",
   "dependencies": {
     "@babel/core": "^7.23.6",
     "@babel/plugin-transform-modules-commonjs": "^7.23.3",
     "@babel/preset-env": "^7.23.6",
-    "bcrypt": "^5.1.0",
+    "bcrypt": "4.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
